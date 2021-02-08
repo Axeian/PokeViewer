@@ -10,6 +10,7 @@ export default function SearchCard() {
   const [pokemonTypes, setPokemonTypes] = useState([]);
   const [typeData, setTypeData] = useState([]);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [invalidPokemon, SetInvalidPokemon] = useState(false);
 
   const isMounted = useRef(false);
 
@@ -31,7 +32,7 @@ export default function SearchCard() {
             setImageLoaded(false);
           }
         } catch (err) {
-          if (!axios.isCancel(err)) window.alert("Enter valid pokemon name");
+          if (!axios.isCancel(err)) SetInvalidPokemon(true);
         }
       }
     };
@@ -79,6 +80,7 @@ export default function SearchCard() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    SetInvalidPokemon(false);
     setLastestSubmittedString(pokemonName);
   };
 
@@ -89,6 +91,23 @@ export default function SearchCard() {
         handleSubmit={handleSubmit}
         setPokemonName={setPokemonName}
       />
+
+      {invalidPokemon && (
+        <div
+          className="alert alert-warning alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>Who's that Pokemon? Please enter valid Pokemon name</strong>
+          <button
+            type="button"
+            className="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      )}
 
       <PokeCard
         pokemonData={pokemonData}

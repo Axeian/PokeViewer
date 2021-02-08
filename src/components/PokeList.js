@@ -54,10 +54,14 @@ function PokeList() {
 
   const onPrevClick = async () => {
     setCurURL(prevURL);
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
 
   const onNextClick = async () => {
     setCurURL(nextURL);
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
 
   return (
