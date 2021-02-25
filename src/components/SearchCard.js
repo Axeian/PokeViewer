@@ -3,8 +3,8 @@ import axios from "axios";
 import SearchBar from "./SearchBar";
 import PokeCard from "./PokeCard";
 
-export default function SearchCard() {
-  const [lastestSubmittedString, setLastestSubmittedString] = useState("");
+function SearchCard() {
+  const [latestSubmittedString, setLatestSubmittedString] = useState("");
   const [pokemonName, setPokemonName] = useState("");
   const [pokemonData, setPokemonData] = useState(null);
   const [pokemonTypes, setPokemonTypes] = useState([]);
@@ -21,7 +21,7 @@ export default function SearchCard() {
         try {
           const prevPokemon = pokemonData ? pokemonData.name : null;
           const res = await axios.get(
-            `https://pokeapi.co/api/v2/pokemon/${lastestSubmittedString}/`,
+            `https://pokeapi.co/api/v2/pokemon/${latestSubmittedString.toLowerCase()}/`,
             {
               cancelToken: source.token,
             }
@@ -39,7 +39,7 @@ export default function SearchCard() {
 
     getPokemonData();
     return () => source.cancel();
-  }, [lastestSubmittedString, pokemonData]);
+  }, [latestSubmittedString, pokemonData]);
 
   useEffect(() => {
     let source = axios.CancelToken.source();
@@ -81,7 +81,12 @@ export default function SearchCard() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     SetInvalidPokemon(false);
-    setLastestSubmittedString(pokemonName);
+    setLatestSubmittedString(pokemonName);
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -97,7 +102,7 @@ export default function SearchCard() {
           className="alert alert-warning alert-dismissible fade show"
           role="alert"
         >
-          <strong>Who's that Pokemon? Please enter valid Pokemon name</strong>
+          <strong>Who's that Pokemon? Please enter valid Pokemon name.</strong>
           <button
             type="button"
             className="close"
@@ -120,3 +125,5 @@ export default function SearchCard() {
     </div>
   );
 }
+
+export default React.memo(SearchCard);
