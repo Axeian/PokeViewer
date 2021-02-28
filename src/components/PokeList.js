@@ -13,6 +13,19 @@ function PokeList() {
   useEffect(() => {
     let source = axios.CancelToken.source();
 
+    // const placeReqeuests = resData => {
+    //   let pDL = new Array(20);
+
+    //   for (let i = 0; i < 20; i++) {
+    //     axios.get(resData.results[i].url, {
+    //       cancelToken: source.token,
+    //     })
+    //     .then(res => {
+    //       pDL[i] = (pokeRes.data);
+    //     })
+    //   }
+    // }
+
     const getList = async (curURL) => {
       setLoading(true);
 
@@ -24,17 +37,34 @@ function PokeList() {
         setPrevURL(resData.previous);
         setNextURL(resData.next);
 
-        const pokemonDataList = [];
+        const requestList = new Array(20);
+        const pokemonDataList = new Array(20);
 
         try {
           for (let i = 0; i < resData.results.length; i++) {
-            const pokeRes = await axios(resData.results[i].url, {
-              cancelToken: source.token,
-            });
+            let bug = false; // handling the #61 bug in pokeAPI.
+            if (resData.results[i].name === "poliwhirl") bug = true;
 
-            pokemonDataList.push(pokeRes.data);
+            requestList[i] = axios.get(
+              `${resData.results[i].url}`.slice(0, -1) + (bug ? "/" : ""),
+              {
+                cancelToken: source.token,
+              }
+            );
           }
 
+          console.log("requestList", requestList);
+
+          await axios.all(requestList).then(
+            axios.spread((...responses) => {
+              console.log("responses", responses);
+              for (let i = 0; i < resData.results.length; i++) {
+                pokemonDataList[i] = responses[i].data;
+              }
+            })
+          );
+
+          console.log("pokemonDataList", pokemonDataList);
           setcurrentList(pokemonDataList);
           setLoading(false);
         } catch (err) {
@@ -69,6 +99,8 @@ function PokeList() {
       behavior: "smooth",
     });
   };
+
+  console.log(currentList);
 
   return (
     <div className="container">
