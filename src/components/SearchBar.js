@@ -8,7 +8,7 @@ function SearchBar({ pokemonName, handleSubmit, setPokemonName }) {
 
   return (
     <nav className="navbar navbar-expand-sm navbar-dark bg-dark fixed-top py-1">
-      <a className="navbar-brand" href="/#">
+      <a className="navbar-brand" href="#">
         <img
           src={process.env.PUBLIC_URL + "/favicon-32x32.png"}
           width="30"
@@ -51,7 +51,7 @@ function SearchBar({ pokemonName, handleSubmit, setPokemonName }) {
               <a
                 key={idx + 1}
                 className="dropdown-item"
-                href="/#"
+                href="#"
                 onClick={() =>
                   setCurURL(
                     `https://pokeapi.co/api/v2/pokemon/?limit=20&offset=${offset}`
@@ -63,7 +63,7 @@ function SearchBar({ pokemonName, handleSubmit, setPokemonName }) {
             ))}
             <a
               className="dropdown-item"
-              href="/#"
+              href="#"
               onClick={() =>
                 setCurURL(
                   `https://pokeapi.co/api/v2/pokemon/?limit=20&offset=898`
