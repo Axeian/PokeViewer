@@ -1,30 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import PokeCard from "./PokeCard";
 import HashLoader from "react-spinners/HashLoader";
+import { CurURLContext } from "../App";
 
 function PokeList() {
-  const [curURL, setCurURL] = useState("https://pokeapi.co/api/v2/pokemon");
+  const [curURL, setCurURL] = useContext(CurURLContext);
   const [currentList, setcurrentList] = useState([]);
   const [prevURL, setPrevURL] = useState(null);
   const [nextURL, setNextURL] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     let source = axios.CancelToken.source();
-
-    // const placeReqeuests = resData => {
-    //   let pDL = new Array(20);
-
-    //   for (let i = 0; i < 20; i++) {
-    //     axios.get(resData.results[i].url, {
-    //       cancelToken: source.token,
-    //     })
-    //     .then(res => {
-    //       pDL[i] = (pokeRes.data);
-    //     })
-    //   }
-    // }
+    setError(false);
 
     const getList = async (curURL) => {
       setLoading(true);
@@ -42,36 +32,32 @@ function PokeList() {
 
         try {
           for (let i = 0; i < resData.results.length; i++) {
-            let bug = false; // handling the #61 bug in pokeAPI.
-            if (resData.results[i].name === "poliwhirl") bug = true;
-
-            requestList[i] = axios.get(
-              `${resData.results[i].url}`.slice(0, -1) + (bug ? "/" : ""),
-              {
-                cancelToken: source.token,
-              }
-            );
+            requestList[i] = axios.get(resData.results[i].url, {
+              cancelToken: source.token,
+            });
           }
-
-          console.log("requestList", requestList);
 
           await axios.all(requestList).then(
             axios.spread((...responses) => {
-              console.log("responses", responses);
               for (let i = 0; i < resData.results.length; i++) {
                 pokemonDataList[i] = responses[i].data;
               }
             })
           );
 
-          console.log("pokemonDataList", pokemonDataList);
           setcurrentList(pokemonDataList);
           setLoading(false);
         } catch (err) {
-          if (!axios.isCancel(err)) throw err;
+          if (!axios.isCancel(err)) {
+            setError(true);
+            throw err;
+          }
         }
       } catch (err) {
-        if (!axios.isCancel(err)) throw err;
+        if (!axios.isCancel(err)) {
+          setError(true);
+          throw err;
+        }
       }
     };
 
@@ -100,13 +86,37 @@ function PokeList() {
     });
   };
 
-  console.log(currentList);
-
   return (
     <div className="container">
-      {loading && (
+      {loading && !error && (
         <div className="d-flex justify-content-center">
           <HashLoader loading={loading} size={40} />
+        </div>
+      )}
+
+      {error && (
+        <div
+          className="alert alert-warning alert-dismissible fade show"
+          role="alert"
+        >
+          <img
+            src={process.env.PUBLIC_URL + "/surprised-pikachu.png"}
+            alt="Surprised pikachu - error"
+            width="50"
+            height="60"
+          ></img>
+          <strong>
+            {" "}
+            Error at PokeAPI end! Try going to the next or previous page.
+          </strong>
+          <button
+            type="button"
+            className="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
       )}
 

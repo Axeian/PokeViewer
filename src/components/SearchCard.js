@@ -21,16 +21,8 @@ function SearchCard() {
         try {
           const prevPokemon = pokemonData ? pokemonData.name : null;
 
-          let bug = false; // handling the #61 bug in pokeAPI.
-          if (
-            latestSubmittedString === "61" ||
-            latestSubmittedString.toLowerCase() === "poliwhirl"
-          )
-            bug = true;
-
           const res = await axios.get(
-            `https://pokeapi.co/api/v2/pokemon/${latestSubmittedString.toLowerCase()}` +
-              (bug ? "/" : ""),
+            `https://pokeapi.co/api/v2/pokemon/${latestSubmittedString.toLowerCase()}/`,
             {
               cancelToken: source.token,
             }
