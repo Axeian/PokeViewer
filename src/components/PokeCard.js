@@ -2,9 +2,13 @@ import React, { useState, useContext, useEffect } from "react";
 import DamageRelations from "./DamageRelations";
 import SearchCardPic from "./SearchCardPic";
 import TypeBlock from "./TypeBlock";
-import { setLatestSubmittedStringContext } from "../App";
-import { setSearchCardLoadedContext } from "../App";
-import { shinyContext } from "../App";
+import {
+  setLatestSubmittedStringContext,
+  setSearchCardLoadedContext,
+  shinyContext,
+  hiddenContext,
+  lastViewedPokemonContext,
+} from "../App";
 
 function PokeCard({
   pokemonData,
@@ -13,7 +17,6 @@ function PokeCard({
   imageLoaded,
   setImageLoaded,
   fromList,
-  hidden,
   setHidden,
 }) {
   const [listImageLoaded, setListImageLoaded] = useState(false);
@@ -22,11 +25,19 @@ function PokeCard({
   const setLatestSubmittedString = useContext(setLatestSubmittedStringContext);
   const setSearchCardLoaded = useContext(setSearchCardLoadedContext);
   const shiny = useContext(shinyContext);
+  const [, fromListsetHidden] = useContext(hiddenContext);
+  const lastViewedPokemon = useContext(lastViewedPokemonContext);
 
   const cardClicked = () => {
     if (fromList) {
-      setLatestSubmittedString(pokemonData.name);
-      setSearchCardLoaded(false);
+      if (lastViewedPokemon !== pokemonData.name) {
+        setLatestSubmittedString(pokemonData.name);
+        setSearchCardLoaded(false);
+      } else {
+        setSearchCardLoaded(true);
+        fromListsetHidden(false);
+      }
+
       window.scroll({
         top: 0,
         left: 0,

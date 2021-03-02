@@ -9,6 +9,9 @@ function SearchCard({
   setSearchCardLoaded,
   latestSubmittedString,
   setLatestSubmittedString,
+  hidden,
+  setHidden,
+  setLastViewedPokemon,
 }) {
   const [pokemonName, setPokemonName] = useState("");
   const [pokemonData, setPokemonData] = useState(null);
@@ -16,17 +19,18 @@ function SearchCard({
   const [typeData, setTypeData] = useState([]);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [invalidPokemon, SetInvalidPokemon] = useState(false);
-  const [hidden, setHidden] = useState(false);
 
   const isMounted = useRef(false);
 
   useEffect(() => {
     let source = axios.CancelToken.source();
+    setSearchCardLoaded(false);
     setHidden(false);
     const getPokemonData = async () => {
       if (isMounted.current) {
         try {
           const prevPokemon = pokemonData ? pokemonData.name : null;
+          setLastViewedPokemon(prevPokemon);
 
           const res = await axios.get(
             `https://pokeapi.co/api/v2/pokemon/${latestSubmittedString.toLowerCase()}/`,
@@ -137,7 +141,6 @@ function SearchCard({
             imageLoaded={imageLoaded}
             setImageLoaded={setImageLoaded}
             fromList={false}
-            hidden={hidden}
             setHidden={setHidden}
           />
         </div>
