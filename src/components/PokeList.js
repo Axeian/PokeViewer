@@ -1,11 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PokeCard from "./PokeCard";
 import HashLoader from "react-spinners/HashLoader";
-import { CurURLContext } from "../App";
 
-function PokeList() {
-  const [curURL, setCurURL] = useContext(CurURLContext);
+function PokeList({ curURL, setCurURL, shiny, setShiny }) {
   const [currentList, setcurrentList] = useState([]);
   const [prevURL, setPrevURL] = useState(null);
   const [nextURL, setNextURL] = useState(null);
@@ -100,7 +98,7 @@ function PokeList() {
           role="alert"
         >
           <img
-            src={process.env.PUBLIC_URL + "/surprised-pikachu.png"}
+            src={process.env.PUBLIC_URL + "/surprised-pikachu.jpg"}
             alt="Surprised pikachu - error"
             width="50"
             height="60"
@@ -155,6 +153,15 @@ function PokeList() {
             </button>
           )}
         </div>
+        <button
+          className={`btn  btn-md btn${
+            shiny ? "" : "-outline"
+          }-warning my-2 my-sm-0 mr-2`}
+          onClick={() => setShiny(!shiny)}
+          style={{ width: "88px" }}
+        >
+          {shiny ? "Shinified" : "Shinify"}
+        </button>
       </nav>
     </div>
   );

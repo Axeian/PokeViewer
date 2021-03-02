@@ -1,14 +1,21 @@
 import React, { useContext } from "react";
 import { setCurURLContext } from "../App";
 
-function SearchBar({ pokemonName, handleSubmit, setPokemonName }) {
+function SearchBar({ pokemonName, handleSubmit, setPokemonName, setHidden }) {
   const setCurURL = useContext(setCurURLContext);
 
   const genOffsets = [0, 151, 251, 386, 493, 649, 721, 809];
 
   return (
     <nav className="navbar navbar-expand-sm navbar-dark bg-dark fixed-top py-1">
-      <a className="navbar-brand" href="#">
+      <a
+        className="navbar-brand"
+        href="#"
+        onClick={() => {
+          setCurURL(`https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0`);
+          setHidden(true);
+        }}
+      >
         <img
           src={process.env.PUBLIC_URL + "/favicon-32x32.png"}
           width="30"

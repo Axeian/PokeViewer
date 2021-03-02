@@ -1,48 +1,81 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
+import { shinyContext } from "../App";
 
 function SearchCardPic({ pokemonID, imageLoaded, setImageLoaded, fromList }) {
-  const [imageUnavailable, setImageUnavailable] = useState(false);
+  const shiny = useContext(shinyContext);
 
   const [width, height] = !fromList ? ["250px", "300px"] : ["200px", "240px"];
 
-  useEffect(() => {
-    let source = axios.CancelToken.source();
-    try {
-      axios
-        .get(
-          `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonID}.png`,
-          { CancelToken: source.token }
-        )
-        .then()
-        .catch(() => setImageUnavailable(true));
-    } catch (err) {
-      if (!axios.isCancel(err)) {
-        throw err;
-      }
-    }
+  // useEffect(() => {
+  //   let source = axios.CancelToken.source();
+  //   setImageLoaded(false);
+  //   try {
+  //     axios
+  //       .get(
+  //         `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonID}.png`,
+  //         { CancelToken: source.token }
+  //       )
+  //       .then()
+  //       .catch(() => setImageUnavailable(true));
+  //   } catch (err) {
+  //     if (!axios.isCancel(err)) {
+  //       throw err;
+  //     }
+  //   }
 
-    return () => {
-      source.cancel();
-    };
-  }, [pokemonID]);
+  //   return () => {
+  //     source.cancel();
+  //   };
+  // }, [pokemonID]);
 
   return (
     <div style={{ backgroundColor: "#f2f2f2", border: "1px solid black" }}>
       <img
         alt="pokemon"
         src={
-          !imageUnavailable
-            ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonID}.png`
-            : process.env.PUBLIC_URL + "/ms-icon-70x70.png"
+          // !imageUnavailable
+          //   ?
+          `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+            shiny ? "/shiny/" : ""
+          }${pokemonID}.png`
+          //: process.env.PUBLIC_URL + "/ms-icon-70x70.png"
         }
         width={width}
         height={height}
         style={!imageLoaded ? { display: "none" } : {}}
         onLoad={() => setImageLoaded(true)}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = process.env.PUBLIC_URL + "/image-not-found.png";
+        }}
       ></img>
-      {imageLoaded && imageUnavailable && (
+
+      {/* <button
+        data-toggle="tooltip"
+        data-placement="top"
+        title="Shiny-fy!"
+        onClick={(e) => {
+          setShiny(!shiny);
+          setImageLoaded(false);
+          e.stopPropagation();
+        }}
+        style={{
+          backgroundImage: `url(${process.env.PUBLIC_URL}/shiny.jpg)`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "contain",
+          height: "22px",
+          width: "22px",
+          position: "absolute",
+          top: "6%",
+          left: "82%",
+          borderRadius: "50%",
+          cursor: "pointer",
+          border: 0,
+        }}
+      ></button> */}
+
+      {/* {imageLoaded && imageUnavailable && (
         <div
           className="lead"
           style={{
@@ -57,7 +90,7 @@ function SearchCardPic({ pokemonID, imageLoaded, setImageLoaded, fromList }) {
             <em>One day it will load its way out...</em>
           </strong>
         </div>
-      )}
+      )} */}
 
       {!imageLoaded && (
         <div
