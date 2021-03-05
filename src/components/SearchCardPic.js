@@ -7,40 +7,13 @@ function SearchCardPic({ pokemonID, imageLoaded, setImageLoaded, fromList }) {
 
   const [width, height] = !fromList ? ["250px", "300px"] : ["200px", "240px"];
 
-  // useEffect(() => {
-  //   let source = axios.CancelToken.source();
-  //   setImageLoaded(false);
-  //   try {
-  //     axios
-  //       .get(
-  //         `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonID}.png`,
-  //         { CancelToken: source.token }
-  //       )
-  //       .then()
-  //       .catch(() => setImageUnavailable(true));
-  //   } catch (err) {
-  //     if (!axios.isCancel(err)) {
-  //       throw err;
-  //     }
-  //   }
-
-  //   return () => {
-  //     source.cancel();
-  //   };
-  // }, [pokemonID]);
-
   return (
     <div style={{ backgroundColor: "#f2f2f2", border: "1px solid black" }}>
       <img
         alt="pokemon"
-        src={
-          // !imageUnavailable
-          //   ?
-          `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-            shiny ? "/shiny/" : ""
-          }${pokemonID}.png`
-          //: process.env.PUBLIC_URL + "/ms-icon-70x70.png"
-        }
+        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+          shiny ? "/shiny/" : ""
+        }${pokemonID}.png`}
         width={width}
         height={height}
         style={!imageLoaded ? { display: "none" } : {}}

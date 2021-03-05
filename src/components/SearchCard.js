@@ -26,6 +26,7 @@ function SearchCard({
     let source = axios.CancelToken.source();
     setSearchCardLoaded(false);
     setHidden(false);
+    SetInvalidPokemon(false);
     const getPokemonData = async () => {
       if (isMounted.current) {
         try {
@@ -93,16 +94,20 @@ function SearchCard({
     return () => source.cancel();
   }, [pokemonData]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSearch = (name) => {
     SetInvalidPokemon(false);
-    setLatestSubmittedString(pokemonName);
+    setLatestSubmittedString(name);
     setHidden(false);
     window.scroll({
       top: 0,
       left: 0,
       behavior: "smooth",
     });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    handleSearch(pokemonName);
   };
 
   return (
@@ -112,6 +117,7 @@ function SearchCard({
         handleSubmit={handleSubmit}
         setPokemonName={setPokemonName}
         setHidden={setHidden}
+        handleSearch={handleSearch}
       />
 
       {invalidPokemon && (
@@ -119,11 +125,25 @@ function SearchCard({
           className="alert alert-warning alert-dismissible fade show"
           role="alert"
         >
-          <strong>Who's that Pokemon? Please enter valid Pokemon name.</strong>
+          <img
+            src={process.env.PUBLIC_URL + "/whos_that_pokemon.png"}
+            alt="who's that pokemon - error"
+            width="50"
+            height="60"
+          ></img>
+          <strong> Who's that Pokemon? Please enter valid Pokemon name.</strong>
+          <button
+            type="button"
+            className="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
       )}
 
-      {pokemonData && !searchCardLoaded && (
+      {pokemonData && !searchCardLoaded && !invalidPokemon && (
         <div
           className="d-inline-flex align-items-center justify-content-center"
           style={{ height: "423px" }}

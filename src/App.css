@@ -7,3 +7,13 @@ body {
   padding-bottom: 20px;
   background-color: #f2f2f2;
 }
+
+#search-recommendation:hover {
+  background-color: #343a40 !important;
+  color: white !important;
+}
+
+#search-recommendation:focus {
+  background-color: #343a40 !important;
+  color: white !important;
+}
