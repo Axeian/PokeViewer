@@ -83,7 +83,7 @@ function SearchBar({
         >
           <input
             ref={inputRef}
-            className="form-control mr-sm-2"
+            className="form-control mr-sm-2 col-9 col-sm-4"
             type="search"
             placeholder="Search Pokemon "
             aria-label="Search"

@@ -17,3 +17,7 @@ body {
   background-color: #343a40 !important;
   color: white !important;
 }
+
+.navbar-toggler {
+  padding: 2px 0px 2px 0px;
+}
