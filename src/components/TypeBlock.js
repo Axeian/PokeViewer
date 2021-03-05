@@ -1,6 +1,6 @@
 import React from "react";
 
-const getStyle = (type) => {
+export function getColor(type) {
   let bgColor = "black",
     color = "white";
 
@@ -72,7 +72,13 @@ const getStyle = (type) => {
       color = "black";
       break;
     default:
+      break;
   }
+  return [color, bgColor];
+}
+
+const getStyle = (type) => {
+  const [color, bgColor] = getColor(type);
 
   return {
     backgroundColor: `${bgColor}`,
@@ -83,6 +89,7 @@ const getStyle = (type) => {
     fontSize: "11px",
     borderRadius: "3px",
     margin: "1px",
+    border: `1px solid ${color}`,
   };
 };
 

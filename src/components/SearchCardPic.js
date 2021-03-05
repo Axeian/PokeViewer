@@ -8,7 +8,12 @@ function SearchCardPic({ pokemonID, imageLoaded, setImageLoaded, fromList }) {
   const [width, height] = !fromList ? ["250px", "300px"] : ["200px", "240px"];
 
   return (
-    <div style={{ backgroundColor: "#f2f2f2", border: "1px solid black" }}>
+    <div
+      style={{
+        backgroundColor: "#f2f2f2",
+        boxShadow: "inset 0 0 0 2px #e9d004",
+      }}
+    >
       <img
         alt="pokemon"
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${

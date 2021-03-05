@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import DamageRelations from "./DamageRelations";
 import SearchCardPic from "./SearchCardPic";
-import TypeBlock from "./TypeBlock";
+import TypeBlock, { getColor } from "./TypeBlock";
 import {
   setLatestSubmittedStringContext,
   setSearchCardLoadedContext,
@@ -50,23 +50,39 @@ function PokeCard({
     setListImageLoaded(false);
   }, [shiny]);
 
+  const getBgcolor = (pokemonTypes) => {
+    let [, bgColor] = getColor(pokemonTypes[0]);
+    return bgColor;
+  };
+
+  const getBgimage = (pokemonTypes) => {
+    let [, color1] = getColor(pokemonTypes[0]);
+    let [, color2] = getColor(pokemonTypes[1]);
+    return `linear-gradient(45deg,${color1},${color2})`;
+  };
+
   return (
     <div className="container mt-5 ">
       {pokemonData && (
         <div>
           <div className="row">
             <div
-              className="col-auto mx-auto jumbotron p-3 mb-15"
-              style={
-                hover && fromList
-                  ? {
-                      border: "1px solid black",
-                      borderRadius: "20px",
-                      cursor: "pointer",
-                      boxShadow: "inset 0 0 0 10px rgba(255,255,255, .4)",
-                    }
-                  : { border: "1px solid black", borderRadius: "20px" }
-              }
+              className="col-auto mx-auto p-3 mb-15 jumbotron"
+              style={{
+                borderRadius: "20px",
+                cursor: `${hover && fromList ? "pointer" : ""}`,
+                boxShadow: `${
+                  hover && fromList
+                    ? "inset 0 0 0 10px rgba(255,255,255, .4)"
+                    : "inset 0 0 0 10px #e9d004"
+                }`,
+                backgroundColor: `${
+                  pokemonTypes.length === 1 ? getBgcolor(pokemonTypes) : ""
+                }`,
+                backgroundImage: `${
+                  pokemonTypes.length > 1 ? getBgimage(pokemonTypes) : ""
+                }`,
+              }}
               onClick={cardClicked}
               onMouseOver={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
@@ -96,7 +112,8 @@ function PokeCard({
               />
 
               <div className="text-uppercase font-weight-bold">
-                #{pokemonData.id} {pokemonData.name}
+                {pokemonData.id < 10000 && `#${pokemonData.id}`}{" "}
+                {pokemonData.name}
               </div>
 
               <div className="m-1">
@@ -113,7 +130,7 @@ function PokeCard({
 
               {!fromList && (
                 <button
-                  className="btn btn-secondary btn-sm"
+                  className="btn btn-light btn-sm"
                   type="button"
                   data-toggle="collapse"
                   data-target="#collapseExample"
