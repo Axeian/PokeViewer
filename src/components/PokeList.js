@@ -97,12 +97,15 @@ function PokeList({ curURL, setCurURL, shiny, setShiny }) {
           className="alert alert-warning alert-dismissible fade show"
           role="alert"
         >
-          <img
-            src={process.env.PUBLIC_URL + "/surprised-pikachu.jpg"}
-            alt="Surprised pikachu - error"
-            width="50"
-            height="60"
-          ></img>
+          <div>
+            <img
+              src={process.env.PUBLIC_URL + "/surprised-pikachu.jpg"}
+              alt="Surprised pikachu - error"
+              width="50"
+              height="60"
+            ></img>
+          </div>
+
           <strong>
             {" "}
             Error at PokeAPI end! Try going to the next or previous page.
@@ -134,7 +137,10 @@ function PokeList({ curURL, setCurURL, shiny, setShiny }) {
         </div>
       )}
 
-      <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom py-1">
+      <nav
+        style={{ opacity: "0.95" }}
+        className="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom py-1"
+      >
         <div className="m-auto">
           {prevURL && (
             <button

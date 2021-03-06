@@ -125,12 +125,15 @@ function SearchCard({
           className="alert alert-warning alert-dismissible fade show"
           role="alert"
         >
-          <img
-            src={process.env.PUBLIC_URL + "/whos_that_pokemon.png"}
-            alt="who's that pokemon - error"
-            width="50"
-            height="60"
-          ></img>
+          <div>
+            <img
+              src={process.env.PUBLIC_URL + "/whos_that_pokemon.png"}
+              alt="who's that pokemon - error"
+              width="50"
+              height="60"
+            ></img>
+          </div>
+
           <strong> Who's that Pokemon? Please enter valid Pokemon name.</strong>
           <button
             type="button"

@@ -36,7 +36,7 @@ function SearchBar({
 
     if (pokemonName.length !== 0) {
       let matchesFound = allPokemon.current.filter((pokemon) => {
-        const regex = new RegExp(`^${pokemonName}`, "gi");
+        const regex = new RegExp(`${pokemonName}`, "gi");
         return pokemon.match(regex);
       });
       setMatches(matchesFound);
@@ -53,7 +53,10 @@ function SearchBar({
   };
 
   return (
-    <nav className="navbar navbar-expand-sm navbar-dark bg-dark fixed-top py-1">
+    <nav
+      style={{ opacity: "0.95" }}
+      className="navbar navbar-expand-sm navbar-dark bg-dark fixed-top py-1"
+    >
       <a
         className="navbar-brand"
         href="#"
