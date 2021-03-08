@@ -138,7 +138,7 @@ function PokeList({ curURL, setCurURL, shiny, setShiny }) {
       )}
 
       <nav
-        style={{ opacity: "0.95" }}
+        style={{ opacity: "0.8" }}
         className="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom py-1"
       >
         <div className="m-auto">

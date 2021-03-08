@@ -5,12 +5,17 @@ body {
   text-align: center;
   padding-top: 30px;
   padding-bottom: 20px;
+  background: url(./trainer_battles_arena.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  /*background-image: url(./pokeball-bg.png);
   background-color: #fffff7;
-  background-image: url(./pokeball-bg.png);
   background-repeat: repeat;
   background-size: 313px 188px;
   background-attachment: fixed;
-  background-blend-mode: multiply;
+  background-blend-mode: multiply;*/
 }
 
 #search-recommendation:hover {

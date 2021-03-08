@@ -54,7 +54,7 @@ function SearchBar({
 
   return (
     <nav
-      style={{ opacity: "0.95" }}
+      style={{ opacity: "0.9" }}
       className="navbar navbar-expand-sm navbar-dark bg-dark fixed-top py-1"
     >
       <a

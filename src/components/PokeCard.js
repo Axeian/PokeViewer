@@ -9,6 +9,7 @@ import {
   hiddenContext,
   lastViewedPokemonContext,
 } from "../App";
+import AbilityBlock from "./AbilityBlock";
 
 function PokeCard({
   pokemonData,
@@ -122,15 +123,17 @@ function PokeCard({
                 ))}
               </div>
 
-              {/* <div className="m-1">
-                {pokemonData.abilities.map((a) => (
-                  <span>{a.ability.name + " "}</span>
-                ))}
-              </div> */}
+              {!fromList && (
+                <div>
+                  {pokemonData.abilities.map((a) => (
+                    <AbilityBlock a={a} />
+                  ))}
+                </div>
+              )}
 
               {!fromList && (
                 <button
-                  className="btn btn-light btn-sm"
+                  className="btn btn-light btn-sm mt-1"
                   type="button"
                   data-toggle="collapse"
                   data-target="#collapseExample"
@@ -148,7 +151,10 @@ function PokeCard({
               <div
                 className="collapse jumbotron p-2"
                 id="collapseExample"
-                style={{ border: "1.5px solid black" }}
+                style={{
+                  border: "1.5px solid black",
+                  backgroundColor: "#fffff7",
+                }}
               >
                 <DamageRelations typeData={typeData} />
               </div>
