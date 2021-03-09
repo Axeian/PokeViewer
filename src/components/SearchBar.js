@@ -80,7 +80,7 @@ function SearchBar({
 
       <div className="order-md-12" ref={formRef}>
         <form
-          onClick={() => setResultsVisible(true)}
+          onFocus={() => setResultsVisible(true)}
           onSubmit={handleSubmit}
           className="form-inline my-2 my-md-0"
         >
