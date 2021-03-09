@@ -19,6 +19,7 @@ function SearchCard({
   const [typeData, setTypeData] = useState([]);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [invalidPokemon, SetInvalidPokemon] = useState(false);
+  const [abilitiesData, setAbilitiesData] = useState({});
 
   const isMounted = useRef(false);
 
@@ -94,6 +95,38 @@ function SearchCard({
     return () => source.cancel();
   }, [pokemonData]);
 
+  useEffect(() => {
+    let source = axios.CancelToken.source();
+    setHidden(false);
+    const getAbilityData = async () => {
+      if (isMounted.current) {
+        let abilityData = {};
+
+        for (const a of pokemonData.abilities) {
+          let ability = a.ability.name;
+          const abilityRes = await axios.get(
+            `https://pokeapi.co/api/v2/ability/${ability}/`,
+            { cancelToken: source.token }
+          );
+
+          let abData = abilityRes.data.effect_entries;
+
+          abData = abData.filter((entry) => entry.language.name === "en");
+
+          abilityData[`${ability}`] = abData[0].short_effect;
+        }
+
+        setAbilitiesData(abilityData);
+        setSearchCardLoaded(true);
+      } else {
+        isMounted.current = true;
+      }
+    };
+    if (pokemonData) getAbilityData();
+
+    return () => source.cancel();
+  }, [pokemonData]);
+
   const handleSearch = (name) => {
     SetInvalidPokemon(false);
     setLatestSubmittedString(name);
@@ -165,6 +198,7 @@ function SearchCard({
             setImageLoaded={setImageLoaded}
             fromList={false}
             setHidden={setHidden}
+            abilitiesData={abilitiesData}
           />
         </div>
       )}
