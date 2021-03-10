@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/PokeViewer/static/css/main.70f77d48.chunk.css",
-    "main.js": "/PokeViewer/static/js/main.60052bf5.chunk.js",
-    "main.js.map": "/PokeViewer/static/js/main.60052bf5.chunk.js.map",
+    "main.js": "/PokeViewer/static/js/main.8d65ea8a.chunk.js",
+    "main.js.map": "/PokeViewer/static/js/main.8d65ea8a.chunk.js.map",
     "runtime-main.js": "/PokeViewer/static/js/runtime-main.ee79deff.js",
     "runtime-main.js.map": "/PokeViewer/static/js/runtime-main.ee79deff.js.map",
     "static/js/2.09320e05.chunk.js": "/PokeViewer/static/js/2.09320e05.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.ee79deff.js",
     "static/js/2.09320e05.chunk.js",
     "static/css/main.70f77d48.chunk.css",
-    "static/js/main.60052bf5.chunk.js"
+    "static/js/main.8d65ea8a.chunk.js"
   ]
 }
