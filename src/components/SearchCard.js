@@ -12,9 +12,10 @@ function SearchCard({
   hidden,
   setHidden,
   setLastViewedPokemon,
+  pokemonData,
+  setPokemonData,
 }) {
   const [pokemonName, setPokemonName] = useState("");
-  const [pokemonData, setPokemonData] = useState(null);
   const [pokemonTypes, setPokemonTypes] = useState([]);
   const [typeData, setTypeData] = useState([]);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -189,7 +190,7 @@ function SearchCard({
       )}
 
       {searchCardLoaded && !hidden && (
-        <div>
+        <div className="row justify-content-center">
           <PokeCard
             pokemonData={pokemonData}
             pokemonTypes={pokemonTypes}

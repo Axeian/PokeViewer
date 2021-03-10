@@ -31,8 +31,3 @@ body {
 .navbar-toggler {
   padding: 2px 0px 2px 0px;
 }
-
-a.active {
-  background-color: white !important;
-  color: black !important;
-}

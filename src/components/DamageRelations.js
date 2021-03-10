@@ -3,7 +3,7 @@ import TypeBlock from "./TypeBlock";
 
 function DamageRelations({ typeData }) {
   return (
-    <div className="container">
+    <div className="container" style={{ maxWidth: "700px" }}>
       <div className="row">
         <div className="col">
           <div className="row">

@@ -64,12 +64,12 @@ function PokeCard({
   };
 
   return (
-    <div className="container mt-5 ">
+    <div className="container mt-5 mx-0">
       {pokemonData && (
         <div>
-          <div className="row mb-15 d-inline-flex justify-content-center">
+          <div className="row ">
             <div
-              className="col-auto p-3 mb-0 jumbotron"
+              className="col-auto mx-auto p-3 mb-15 jumbotron"
               style={{
                 borderRadius: "20px",
                 cursor: `${hover && fromList ? "pointer" : ""}`,
@@ -123,83 +123,42 @@ function PokeCard({
                   <TypeBlock type={t} key={t} />
                 ))}
               </div>
-            </div>
 
-            {!fromList && (
-              <div
-                className="col-auto row p-3 mb-0 jumbotron justify-content-center"
-                style={{
-                  borderRadius: "20px",
-                  height: "422.px",
-                  width: "282px",
-                  boxShadow: "inset 0 0 0 10px #e9d004",
-                  backgroundColor: `${
-                    pokemonTypes.length === 1 ? getBgcolor(pokemonTypes) : ""
-                  }`,
-                  backgroundImage: `${
-                    pokemonTypes.length > 1 ? getBgimage(pokemonTypes) : ""
-                  }`,
-                }}
-              >
-                <div
-                  className="d-flex m-auto p-1"
-                  style={{ border: "1px solid black", borderRadius: "10px" }}
-                >
-                  <div
-                    className="list-group col-4 justify-content-center"
-                    id="list-tab"
-                    role="tablist"
-                  >
-                    {pokemonData.abilities.map((a, idx) => (
-                      <AbilityBlock a={a} key={idx} />
-                    ))}
-                  </div>
-                  <div className="tab-content col-8" id="nav-tabContent">
-                    {pokemonData.abilities.map((a, key) => (
-                      <div
-                        key={key}
-                        style={{ fontSize: "0.8em" }}
-                        className={`tab-pane fade  ${
-                          key === 0 ? " show active" : ""
-                        }`}
-                        id={"list-" + `${a.ability.name}`}
-                        role="tabpanel"
-                        aria-labelledby={
-                          "list-" + `${a.ability.name}` + "-list"
-                        }
-                      >
-                        <strong>
-                          {!a.is_hidden ? "Ability" : "Hidden Ability"}
-                        </strong>
-                        <p>{abilitiesData[`${a.ability.name}`]}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              {!fromList && (
                 <div>
-                  <button
-                    className="btn btn-light btn-sm mt-1"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#collapseExample"
-                    aria-expanded="false"
-                    aria-controls="collapseExample"
-                  >
-                    Damage Relations
-                  </button>
+                  {pokemonData.abilities.map((a) => (
+                    <AbilityBlock
+                      a={a}
+                      key={a.ability.name}
+                      desc={abilitiesData[`${a.ability.name}`]}
+                    />
+                  ))}
                 </div>
-              </div>
-            )}
+              )}
+
+              {!fromList && (
+                <button
+                  className="btn btn-light btn-sm mt-1"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseExample"
+                  aria-expanded="false"
+                  aria-controls="collapseExample"
+                >
+                  Damage Relations
+                </button>
+              )}
+            </div>
           </div>
 
           {!fromList && (
             <div>
               <div
-                className="collapse jumbotron p-2"
+                className="collapse jumbotron p-2 mx-auto"
                 id="collapseExample"
                 style={{
                   border: "1.5px solid black",
-                  backgroundColor: "#fffff7",
+                  backgroundColor: "#f2f2f2",
                 }}
               >
                 <DamageRelations typeData={typeData} />
