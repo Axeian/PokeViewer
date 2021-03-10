@@ -190,7 +190,10 @@ function SearchCard({
       )}
 
       {searchCardLoaded && !hidden && (
-        <div className="row justify-content-center">
+        <div
+          className="row justify-content-center m-auto"
+          style={{ maxWidth: "100%" }}
+        >
           <PokeCard
             pokemonData={pokemonData}
             pokemonTypes={pokemonTypes}
