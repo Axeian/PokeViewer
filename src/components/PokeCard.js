@@ -129,7 +129,11 @@ function PokeCard({
                   {pokemonData.abilities.map((a) => (
                     <AbilityBlock
                       a={a}
-                      key={a.ability.name}
+                      key={
+                        abilitiesData[`${a.ability.name}`] === undefined
+                          ? a.ability.name
+                          : abilitiesData[`${a.ability.name}`]
+                      }
                       desc={abilitiesData[`${a.ability.name}`]}
                     />
                   ))}

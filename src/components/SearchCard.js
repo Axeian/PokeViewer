@@ -113,8 +113,17 @@ function SearchCard({
           let abData = abilityRes.data.effect_entries;
 
           abData = abData.filter((entry) => entry.language.name === "en");
-
-          abilityData[`${ability}`] = abData[0].short_effect;
+          try {
+            abilityData[`${ability}`] = abData[0].short_effect;
+          } catch {
+            abData = abilityRes.data.flavor_text_entries;
+            abData = abData.filter((entry) => entry.language.name === "en");
+            try {
+              abilityData[`${ability}`] = abData[0].flavor_text;
+            } catch {
+              abilityData[`${ability}`] = "";
+            }
+          }
         }
 
         setAbilitiesData(abilityData);

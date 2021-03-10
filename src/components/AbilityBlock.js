@@ -7,9 +7,6 @@ const getColor = (a) => {
 function AbilityBlock({ a, desc }) {
   return (
     <a
-      // data-toggle="tooltip"
-      // title="Tooltip on top"
-      // data-animation="true"
       className="badge align-middle mr-1"
       container="body"
       tabIndex="0"
@@ -17,7 +14,7 @@ function AbilityBlock({ a, desc }) {
       data-toggle="popover"
       data-trigger="focus"
       title={a.is_hidden ? "Hidden Ability" : "Ability"}
-      data-content={desc}
+      data-content={desc === undefined ? "<em>Loading...</em>" : `${desc}`}
       style={{
         color: `${getColor(a)}`,
         fontSize: "9px",

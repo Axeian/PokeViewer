@@ -36,8 +36,12 @@ function SearchBar({
 
     if (pokemonName.length !== 0) {
       let matchesFound = allPokemon.current.filter((pokemon) => {
-        const regex = new RegExp(`${pokemonName}`, "gi");
-        return pokemon.match(regex);
+        try {
+          const regex = new RegExp(`${pokemonName}`, "gi");
+          return pokemon.match(regex);
+        } catch {
+          return false;
+        }
       });
       setMatches(matchesFound);
     } else {
